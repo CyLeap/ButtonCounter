@@ -1,42 +1,73 @@
-# sv
+# ButtonCounter
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A full-stack web application developed as a team project using SvelteKit, TypeScript, and Turso.
 
-## Creating a project
+## Overview
 
-If you're seeing this, you've probably already done this step. Congrats!
+ButtonCounter is a simple counter web app built with SvelteKit and TypeScript, using Turso (libSQL) as the database. The click count is persisted to the database so it survives page reloads and is shared across users.
 
-```sh
-# create a new project
-npx sv create my-app
-```
+## Tech Stack
 
-To recreate this project with the same configuration:
+- **Framework:** SvelteKit
+- **Language:** TypeScript
+- **Database:** Turso (libSQL)
+- **Database Client:** `@libsql/client`
+- **Package Manager:** npm
 
-```sh
-# recreate this project
-npx sv@0.17.0 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:none" sveltekit-adapter="adapter:cloudflare+cfTarget:workers" --install npm ButtonCounter
-```
+## Requirements
 
-## Developing
+Before setting up the project, make sure you have:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- Node.js
+- npm
+- Git
+- A Turso account or access to the team's Turso database
 
-```sh
+## Setup
+
+### 1. Clone the repository
+
+\`\`\`bash
+git clone https://github.com/CyLeap/ButtonCounter.git
+cd ButtonCounter
+\`\`\`
+
+### 2. Install dependencies
+
+\`\`\`bash
+npm install
+\`\`\`
+
+### 3. Configure environment variables
+
+Create a `.env` file in the project root:
+
+\`\`\`env
+TURSO_DATABASE_URL=your_turso_database_url
+TURSO_AUTH_TOKEN=your_turso_auth_token
+\`\`\`
+
+> **Note:** Never commit your `.env` file. Make sure it's listed in `.gitignore`.
+
+### 4. Start the development server
+
+\`\`\`bash
 npm run dev
+\`\`\`
 
-# or start the server and open the app in a new browser tab
+Or start the server and open it in the browser automatically:
+
+\`\`\`bash
 npm run dev -- --open
-```
+\`\`\`
 
-## Building
+The app will be available at `http://localhost:5173` by default.
 
-To create a production version of your app:
+## Available Scripts
 
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Build the app for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run check` | Run type-checking (svelte-check) |
