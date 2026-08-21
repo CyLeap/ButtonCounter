@@ -32,7 +32,7 @@ jobs:
         run: npm run check
 
       - name: Lint
-        run: eslint .
+        run: npx eslint .
 
       - name: Build
         run: npm run build
