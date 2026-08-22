@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-	import { resolveRoute } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import HistoryTable from '$lib/components/HistoryTable.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
 
 	let { data }: PageProps = $props();
 </script>
@@ -9,7 +10,7 @@
 <div class="flex min-h-screen flex-col bg-bg">
 	<header class="grid w-full grid-cols-3 items-center py-10">
 		<a
-			href={resolveRoute('/')}
+			href={resolve('/')}
 			class="justify-self-start pl-6 text-sm text-ink/60 transition hover:text-ink"
 		>
 			← 後ろ
@@ -23,6 +24,7 @@
 	</header>
 
 	<main class="mx-auto w-full max-w-2xl px-4">
-		<HistoryTable history={data.history} />
+		<HistoryTable history={data.history} startIndex={(data.page - 1) * data.pageSize} />
+		<Pagination page={data.page} totalPages={data.totalPages} />
 	</main>
 </div>

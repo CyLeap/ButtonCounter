@@ -9,9 +9,10 @@
 
 	type Props = {
 		history: HistoryEntry[];
+		startIndex?: number;
 	};
 
-	let { history }: Props = $props();
+	let { history, startIndex = 0 }: Props = $props();
 </script>
 
 <div class="overflow-x-auto rounded-lg border border-border bg-surface">
@@ -26,7 +27,7 @@
 		<tbody>
 			{#each history as entry, i (entry.id)}
 				<tr class="border-t border-border-soft transition hover:bg-row-hover">
-					<td class="px-6 py-3 text-dim">{i + 1}</td>
+					<td class="px-6 py-3 text-dim">{startIndex + i + 1}</td>
 					<td class="px-6 py-3 font-medium text-ink">{entry.count}</td>
 					<td class="px-6 py-3 text-muted">{formatDateJP(entry.clicked_at)}</td>
 				</tr>
