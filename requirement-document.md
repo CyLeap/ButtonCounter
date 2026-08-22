@@ -16,6 +16,22 @@ Define the technical and performance requirements for the ButtonCounter applicat
 
 ---
 
+## Functional Requirements Definition
+
+1. Button Press Action: Count increases by 1
+   Each time the button is pressed, the count increases by 1.
+
+2. Timing of Saving Count to Database
+   The count is saved to the database each time the button is pressed.
+
+3. Count Retention After Page Reload
+   When the page is opened, the current count stored in the database is displayed.
+
+4. Necessity of Reset Function
+   A reset button will be implemented. Pressing it resets the count to 0 and reflects this in the database.
+
+---
+
 ## Performance Requirements
 
 ### Response Time
