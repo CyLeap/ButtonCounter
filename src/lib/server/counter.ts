@@ -75,27 +75,18 @@ export async function getCounter(): Promise<number> {
 }
 
 export async function incrementCounter(): Promise<number> {
-	const tx = await db.transaction('write');
 	try {
-		await tx.execute(
-			"UPDATE counters SET value = value + 1, updated_at = DATETIME('now') WHERE id = 1"
+		const [updateResult] = await db.batch(
+			[
+				"UPDATE counters SET value = value + 1, updated_at = DATETIME('now') WHERE id = 1 RETURNING value",
+				'INSERT INTO count_histories (counter_id, count) VALUES (1, (SELECT value FROM counters WHERE id = 1))'
+			],
+			'write'
 		);
 
-		const result = await tx.execute('SELECT value FROM counters WHERE id = 1');
-		const raw = result.rows[0]?.value ?? 0;
-		const newValue = typeof raw === 'number' ? raw : Number(raw);
-
-		await tx.execute({
-			sql: 'INSERT INTO count_histories (counter_id, count) VALUES (?, ?)',
-			args: [1, newValue]
-		});
-
-		await tx.commit();
-		return newValue;
+		const raw = updateResult.rows[0]?.value ?? 0;
+		return typeof raw === 'number' ? raw : Number(raw);
 	} catch (error) {
-		await tx.rollback().catch((rollbackErr) => {
-			console.error('Rollback failed:', rollbackErr);
-		});
 		throw new Error(
 			`Failed to increment counter: ${error instanceof Error ? error.message : String(error)}`,
 			{ cause: error }
@@ -104,15 +95,13 @@ export async function incrementCounter(): Promise<number> {
 }
 
 export async function resetCounter(): Promise<number> {
-	const tx = await db.transaction('write');
 	try {
-		await tx.execute("UPDATE counters SET value = 0, updated_at = DATETIME('now') WHERE id = 1");
-		await tx.commit();
-		return await getCounter();
+		const result = await db.execute(
+			"UPDATE counters SET value = 0, updated_at = DATETIME('now') WHERE id = 1 RETURNING value"
+		);
+		const raw = result.rows[0]?.value ?? 0;
+		return typeof raw === 'number' ? raw : Number(raw);
 	} catch (error) {
-		await tx.rollback().catch((rollbackErr) => {
-			console.error('Rollback failed:', rollbackErr);
-		});
 		throw new Error(
 			`Failed to reset counter: ${error instanceof Error ? error.message : String(error)}`,
 			{ cause: error }
@@ -120,13 +109,32 @@ export async function resetCounter(): Promise<number> {
 	}
 }
 
-export async function getCountHistory(): Promise<CountHistory[]> {
+export async function getCountHistory({
+	limit = 50,
+	offset = 0
+}: { limit?: number; offset?: number } = {}): Promise<CountHistory[]> {
 	try {
-		const result = await db.execute('SELECT * FROM count_histories ORDER BY clicked_at DESC');
+		const result = await db.execute({
+			sql: 'SELECT * FROM count_histories ORDER BY clicked_at DESC LIMIT ? OFFSET ?',
+			args: [limit, offset]
+		});
 		return result.rows.map((row) => toCountHistory(row as Record<string, unknown>));
 	} catch (error) {
 		throw new Error(
 			`Failed to retrieve count history: ${error instanceof Error ? error.message : String(error)}`,
+			{ cause: error }
+		);
+	}
+}
+
+export async function getCountHistoryTotal(): Promise<number> {
+	try {
+		const result = await db.execute('SELECT COUNT(*) as total FROM count_histories');
+		const value = result.rows[0]?.total ?? 0;
+		return typeof value === 'number' ? value : Number(value);
+	} catch (error) {
+		throw new Error(
+			`Failed to retrieve count history total: ${error instanceof Error ? error.message : String(error)}`,
 			{ cause: error }
 		);
 	}

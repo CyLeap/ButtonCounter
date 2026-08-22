@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
+	let { onReset }: { onReset: (count: number) => void } = $props();
+
 	let dialog: HTMLDialogElement | undefined;
 	let resetError = $state<string | null>(null);
 </script>
@@ -42,14 +44,14 @@
 			action="?/reset"
 			use:enhance={() => {
 				resetError = null;
-				return async ({ result, update }) => {
-					if (result.type === 'failure') {
+				return async ({ result }) => {
+					if (result.type === 'success') {
+						onReset((result.data as { count: number }).count);
+						dialog?.close();
+					} else if (result.type === 'failure') {
 						resetError =
 							(result.data as { error?: string } | undefined)?.error ??
 							'Reset failed. Please try again.';
-					} else {
-						await update();
-						dialog?.close();
 					}
 				};
 			}}
