@@ -14,9 +14,9 @@
 	let { history }: Props = $props();
 </script>
 
-<div class="overflow-x-auto rounded-lg border border-gray-200">
+<div class="overflow-x-auto rounded-lg border border-border bg-surface">
 	<table class="w-full text-left text-sm">
-		<thead class="bg-[#1B2A4A] text-white">
+		<thead class="bg-table-header text-table-header-fg">
 			<tr>
 				<th class="px-6 py-3 font-medium">#</th>
 				<th class="px-6 py-3 font-medium">カウント</th>
@@ -25,14 +25,14 @@
 		</thead>
 		<tbody>
 			{#each history as entry, i (entry.id)}
-				<tr class="border-t border-gray-100 transition hover:bg-gray-50">
-					<td class="px-6 py-3 text-gray-400">{i + 1}</td>
-					<td class="px-6 py-3 font-medium text-[#1B2A4A]">{entry.count}</td>
-					<td class="px-6 py-3 text-gray-500">{formatDateJP(entry.clicked_at)}</td>
+				<tr class="border-t border-border-soft transition hover:bg-row-hover">
+					<td class="px-6 py-3 text-dim">{i + 1}</td>
+					<td class="px-6 py-3 font-medium text-ink">{entry.count}</td>
+					<td class="px-6 py-3 text-muted">{formatDateJP(entry.clicked_at)}</td>
 				</tr>
 			{:else}
 				<tr>
-					<td colspan="3" class="px-6 py-8 text-center text-gray-400"> No history yet. </td>
+					<td colspan="3" class="px-6 py-8 text-center text-dim">No history yet.</td>
 				</tr>
 			{/each}
 		</tbody>
