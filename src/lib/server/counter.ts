@@ -12,9 +12,10 @@ export async function ensureCounterTable() {
 	await db.execute(`INSERT OR IGNORE INTO counter (id, value) VALUES (1, 0)`);
 }
 
-export async function getCounter() {
+export async function getCounter(): Promise<number> {
 	const result = await db.execute('SELECT value FROM counter WHERE id = 1');
-	return result.rows[0]?.value ?? 0;
+	const value = result.rows[0]?.value ?? 0;
+	return typeof value === 'number' ? value : Number(value);
 }
 
 export async function incrementCounter() {
