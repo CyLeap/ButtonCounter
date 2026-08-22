@@ -38,5 +38,9 @@
 	},
 	"dependencies": {
 		"@libsql/client": "^0.17.4"
+	},
+	"allowScripts": {
+		"esbuild@0.28.1": true,
+		"workerd@1.20260811.1": true
 	}
 }

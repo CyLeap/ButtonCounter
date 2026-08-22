@@ -3,8 +3,8 @@
 </script>
 
 <div class="flex flex-col items-center gap-1">
-	<span class="text-8xl font-extrabold tabular-nums text-black-600">
+	<span class="text-8xl font-extrabold text-slate-600 tabular-nums">
 		{count}
 	</span>
-	<span class="text-xs uppercase tracking-widest text-slate-400 font-medium">カウト</span>
+	<span class="text-xs font-medium tracking-widest text-slate-400 uppercase">カウント</span>
 </div>
