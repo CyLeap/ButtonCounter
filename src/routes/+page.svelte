@@ -8,6 +8,8 @@
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	let incrementError = $state<string | null>(null);
 </script>
 
 <div class="flex min-h-screen flex-col items-center bg-bg">
@@ -35,9 +37,27 @@
 		>
 			<CountDisplay count={data.count} />
 			<div class="flex flex-col items-center gap-5 sm:gap-6">
-				<form method="POST" action="?/increment" use:enhance>
+				<form
+					method="POST"
+					action="?/increment"
+					use:enhance={() => {
+						incrementError = null;
+						return async ({ result, update }) => {
+							if (result.type === 'failure') {
+								incrementError =
+									(result.data as { error?: string } | undefined)?.error ??
+									'Increment failed. Please try again.';
+							} else {
+								await update();
+							}
+						};
+					}}
+				>
 					<CountButton />
 				</form>
+				{#if incrementError}
+					<p class="text-sm text-red-600">{incrementError}</p>
+				{/if}
 				<ResetButton />
 			</div>
 			<span

@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 
 	let dialog: HTMLDialogElement | undefined;
+	let resetError = $state<string | null>(null);
 </script>
 
 <button
@@ -23,6 +24,10 @@
 		カウントを 0 に戻しますか？
 	</p>
 
+	{#if resetError}
+		<p class="mt-2 text-sm text-red-600">{resetError}</p>
+	{/if}
+
 	<div class="mt-6 flex justify-end gap-3">
 		<button
 			type="button"
@@ -36,8 +41,17 @@
 			method="POST"
 			action="?/reset"
 			use:enhance={() => {
-				// Dismiss straight away; enhance still applies the result.
-				dialog?.close();
+				resetError = null;
+				return async ({ result, update }) => {
+					if (result.type === 'failure') {
+						resetError =
+							(result.data as { error?: string } | undefined)?.error ??
+							'Reset failed. Please try again.';
+					} else {
+						await update();
+						dialog?.close();
+					}
+				};
 			}}
 		>
 			<button
