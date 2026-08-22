@@ -3,7 +3,8 @@ import {
 	ensureCounterTable,
 	ensureCountHistoryTable,
 	getCounter,
-	incrementCounter
+	incrementCounter,
+	resetCounter
 } from '$lib/server/counter';
 
 export const load: PageServerLoad = async () => {
