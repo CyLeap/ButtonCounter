@@ -67,6 +67,11 @@ export async function incrementCounter(): Promise<number> {
     return newValue;
 }
 
+export async function resetCounter(): Promise<number> {
+	await db.execute('UPDATE counters SET value = 0 WHERE id = 1');
+	return getCounter();
+}
+
 export async function getCountHistory(): Promise<CountHistory[]> {
     const result = await db.execute('SELECT * FROM count_histories ORDER BY clicked_at DESC');
     return result.rows.map((row) => toCountHistory(row as Record<string, unknown>));
