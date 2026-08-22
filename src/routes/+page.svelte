@@ -3,18 +3,24 @@
 	import CountDisplay from '$lib/components/CountDisplay.svelte';
 	import ResetButton from '$lib/components/ResetButton.svelte';
 	import { enhance } from '$app/forms';
+	import { resolveRoute } from '$app/paths';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 </script>
 
-<div class="flex min-h-dvh flex-col items-center bg-[#F3ECDF]">
-	<header class="w-full py-8 text-center sm:py-10">
-		<h1
-			class="bold mt-1 font-['Noto_Sans_JP'] text-2xl tracking-[0.2em] text-[#1B2A4A] sm:text-3xl sm:tracking-[0.3em]"
+<div class="flex min-h-screen flex-col items-center bg-[#F3ECDF]">
+	<header class="grid w-full grid-cols-3 items-center py-10">
+		<a
+			href={resolveRoute('/history')}
+			class="text-md justify-self-start pl-6 text-[#1B2A4A]/60 transition hover:text-[#1B2A4A]"
 		>
+			歴史
+		</a>
+		<h1 class="bold mt-1 font-['Noto_Sans_JP'] text-3xl tracking-[0.3em] text-[#1B2A4A]">
 			ボタン カウンター
 		</h1>
+		<span aria-hidden="true" />
 	</header>
 
 	<main class="flex w-full max-w-xl flex-1 items-center justify-center px-4 sm:px-6">

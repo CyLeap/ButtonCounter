@@ -1,5 +1,11 @@
 import type { PageServerLoad, Actions } from './$types';
-import { ensureCounterTable, ensureCountHistoryTable, getCounter, incrementCounter, resetCounter } from '$lib/server/counter';
+import {
+	ensureCounterTable,
+	ensureCountHistoryTable,
+	getCounter,
+	incrementCounter,
+	resetCounter
+} from '$lib/server/counter';
 
 export const load: PageServerLoad = async () => {
 	await ensureCounterTable();

@@ -1,28 +1,28 @@
 import { db } from '$lib/server/db';
 
 interface CountHistory {
-    id: number;
-    counter_id: number;
-    count: number;
-    clicked_at: string;
+	id: number;
+	counter_id: number;
+	count: number;
+	clicked_at: string;
 }
 
 function toCountHistory(row: Record<string, unknown>): CountHistory {
-    if (
-        typeof row.id !== 'number' ||
-        typeof row.counter_id !== 'number' ||
-        typeof row.count !== 'number' ||
-        typeof row.clicked_at !== 'string'
-    ) {
-        throw new Error(`Invalid count_history row shape: ${JSON.stringify(row)}`);
-    }
+	if (
+		typeof row.id !== 'number' ||
+		typeof row.counter_id !== 'number' ||
+		typeof row.count !== 'number' ||
+		typeof row.clicked_at !== 'string'
+	) {
+		throw new Error(`Invalid count_history row shape: ${JSON.stringify(row)}`);
+	}
 
-    return {
-        id: row.id,
-        counter_id: row.counter_id,
-        count: row.count,
-        clicked_at: row.clicked_at,
-    };
+	return {
+		id: row.id,
+		counter_id: row.counter_id,
+		count: row.count,
+		clicked_at: row.clicked_at
+	};
 }
 
 export async function ensureCounterTable() {
@@ -58,13 +58,13 @@ export async function getCounter(): Promise<number> {
 }
 
 export async function incrementCounter(): Promise<number> {
-    await db.execute('UPDATE counters SET value = value + 1 WHERE id = 1');
-    const newValue = await getCounter();
-    await db.execute({
-        sql: 'INSERT INTO count_histories (counter_id, count) VALUES (?, ?)',
-        args: [1, newValue],
-    });
-    return newValue;
+	await db.execute('UPDATE counters SET value = value + 1 WHERE id = 1');
+	const newValue = await getCounter();
+	await db.execute({
+		sql: 'INSERT INTO count_histories (counter_id, count) VALUES (?, ?)',
+		args: [1, newValue]
+	});
+	return newValue;
 }
 
 export async function resetCounter(): Promise<number> {
@@ -73,6 +73,6 @@ export async function resetCounter(): Promise<number> {
 }
 
 export async function getCountHistory(): Promise<CountHistory[]> {
-    const result = await db.execute('SELECT * FROM count_histories ORDER BY clicked_at DESC');
-    return result.rows.map((row) => toCountHistory(row as Record<string, unknown>));
+	const result = await db.execute('SELECT * FROM count_histories ORDER BY clicked_at DESC');
+	return result.rows.map((row) => toCountHistory(row as Record<string, unknown>));
 }
