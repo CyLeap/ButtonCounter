@@ -1,18 +1,29 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import CountButton from '$lib/components/CountButton.svelte';
 	import CountDisplay from '$lib/components/CountDisplay.svelte';
 	import ResetButton from '$lib/components/ResetButton.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import { countPoll } from '$lib/countPoll.svelte';
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 
-	let count = $derived(data.count);
+	let count = $state(data.count);
 
 	let incrementPending = $state(false);
 	let incrementError = $state<string | null>(null);
+
+	onMount(() => {
+		countPoll.start();
+		return () => countPoll.stop();
+	});
+
+	$effect(() => {
+		if (countPoll.count !== null) count = countPoll.count;
+	});
 </script>
 
 <div class="flex min-h-screen flex-col items-center bg-bg">
@@ -68,6 +79,9 @@
 				</form>
 				{#if incrementError}
 					<p class="text-sm text-red-600">{incrementError}</p>
+				{/if}
+				{#if countPoll.status === 'error'}
+					<p class="text-sm text-red-600">Sync lost. Retrying…</p>
 				{/if}
 				<ResetButton onReset={(newCount) => (count = newCount)} />
 			</div>

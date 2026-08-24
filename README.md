@@ -58,7 +58,6 @@ npm run dev
 
 Or start the server and open it in the browser automatically:
 
-
 ```bash
 npm run dev -- --open
 ```
@@ -74,8 +73,6 @@ The app will be available at `http://localhost:5173` by default.
 | `npm run preview` | Preview the production build locally |
 | `npm run check`   | Run type-checking (svelte-check)     |
 
-
-
 # ボタンカウンター
 
 SvelteKit、TypeScript、Tursoを使用してチームで開発したフルスタックWebアプリケーションです。
@@ -86,20 +83,20 @@ SvelteKit、TypeScript、Tursoを使用してチームで開発したフルス�
 
 ## 技術スタック
 
-* **フレームワーク:** SvelteKit
-* **言語:** TypeScript
-* **データベース:** Turso（libSQL）
-* **データベースクライアント:** `@libsql/client`
-* **パッケージマネージャー:** npm
+- **フレームワーク:** SvelteKit
+- **言語:** TypeScript
+- **データベース:** Turso（libSQL）
+- **データベースクライアント:** `@libsql/client`
+- **パッケージマネージャー:** npm
 
 ## 必要な環境
 
 プロジェクトをセットアップする前に、以下がインストールされていることを確認してください。
 
-* Node.js
-* npm
-* Git
-* Tursoアカウント、またはチームのTursoデータベースへのアクセス権
+- Node.js
+- npm
+- Git
+- Tursoアカウント、またはチームのTursoデータベースへのアクセス権
 
 ## セットアップ
 
@@ -145,9 +142,9 @@ npm run dev -- --open
 
 ## 利用可能なスクリプト
 
-| コマンド           |  説明                               |
-| ----------------- | ------------------------------------|
-| `npm run dev`     | 開発サーバーを起動する                |
-| `npm run build`   | 本番環境用にアプリをビルドする         |  
+| コマンド          | 説明                                   |
+| ----------------- | -------------------------------------- |
+| `npm run dev`     | 開発サーバーを起動する                 |
+| `npm run build`   | 本番環境用にアプリをビルドする         |
 | `npm run preview` | 本番用ビルドをローカルでプレビューする |
-| `npm run check`   | 型チェック（svelte-check）を実行する  |
+| `npm run check`   | 型チェック（svelte-check）を実行する   |
