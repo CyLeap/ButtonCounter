@@ -65,9 +65,9 @@ The app will be available at `http://localhost:5173` by default.
 
 ## Available Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the development server |
-| `npm run build` | Build the app for production |
+| Command           | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the development server         |
+| `npm run build`   | Build the app for production         |
 | `npm run preview` | Preview the production build locally |
-| `npm run check` | Run type-checking (svelte-check) |
+| `npm run check`   | Run type-checking (svelte-check)     |

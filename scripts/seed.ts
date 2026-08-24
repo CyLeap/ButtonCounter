@@ -21,7 +21,9 @@ async function seed() {
 	const rowCount = (existing.rows[0] as { count: number }).count;
 
 	if (rowCount > 0) {
-		console.log(`counters テーブルには既に ${rowCount} 件のデータがあります。シードをスキップします。`);
+		console.log(
+			`counters テーブルには既に ${rowCount} 件のデータがあります。シードをスキップします。`
+		);
 		return;
 	}
 
