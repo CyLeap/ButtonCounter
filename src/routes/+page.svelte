@@ -1,29 +1,29 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import CountButton from '$lib/components/CountButton.svelte';
-	import CountDisplay from '$lib/components/CountDisplay.svelte';
-	import ResetButton from '$lib/components/ResetButton.svelte';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import { countPoll } from '$lib/countPoll.svelte';
-	import { enhance } from '$app/forms';
-	import { resolve } from '$app/paths';
-	import type { PageProps } from './$types';
+	import { onMount } from 'svelte'
+	import CountButton from '$lib/components/CountButton.svelte'
+	import CountDisplay from '$lib/components/CountDisplay.svelte'
+	import ResetButton from '$lib/components/ResetButton.svelte'
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte'
+	import { countPoll } from '$lib/countPoll.svelte'
+	import { enhance } from '$app/forms'
+	import { resolve } from '$app/paths'
+	import type { PageProps } from './$types'
 
-	let { data }: PageProps = $props();
+	let { data }: PageProps = $props()
 
-	let count = $state(data.count);
+	let count = $state(data.count)
 
-	let incrementPending = $state(false);
-	let incrementError = $state<string | null>(null);
+	let incrementPending = $state(false)
+	let incrementError = $state<string | null>(null)
 
 	onMount(() => {
-		countPoll.start();
-		return () => countPoll.stop();
-	});
+		countPoll.start()
+		return () => countPoll.stop()
+	})
 
 	$effect(() => {
-		if (countPoll.count !== null) count = countPoll.count;
-	});
+		if (countPoll.count !== null) count = countPoll.count
+	})
 </script>
 
 <div class="flex min-h-screen flex-col items-center bg-bg">
@@ -34,7 +34,7 @@
 		>
 			歴史
 		</a>
-		<h1 class="bold mt-1 font-['Noto_Sans_JP'] text-3xl tracking-[0.3em] text-ink">
+		<h1 class="bold mt-1 text-center font-['Noto_Sans_JP'] text-3xl tracking-[0.3em] text-ink">
 			ボタン カウンター
 		</h1>
 		<div class="justify-self-end pr-6">
@@ -56,21 +56,21 @@
 					action="?/increment"
 					use:enhance={({ cancel }) => {
 						if (incrementPending) {
-							cancel();
-							return;
+							cancel()
+							return
 						}
-						incrementPending = true;
-						incrementError = null;
+						incrementPending = true
+						incrementError = null
 						return async ({ result }) => {
-							incrementPending = false;
+							incrementPending = false
 							if (result.type === 'success') {
-								count = (result.data as { count: number }).count;
+								count = (result.data as { count: number }).count
 							} else if (result.type === 'failure') {
 								incrementError =
 									(result.data as { error?: string } | undefined)?.error ??
-									'Increment failed. Please try again.';
+									'Increment failed. Please try again.'
 							}
-						};
+						}
 					}}
 				>
 					<fieldset disabled={incrementPending} class="contents">
