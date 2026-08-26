@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
+	import { enhance } from "$app/forms"
 
 	let { onReset }: { onReset: (count: number) => void } = $props()
 
@@ -45,13 +45,13 @@
 			use:enhance={() => {
 				resetError = null
 				return async ({ result }) => {
-					if (result.type === 'success') {
+					if (result.type === "success") {
 						onReset((result.data as { count: number }).count)
 						dialog?.close()
-					} else if (result.type === 'failure') {
+					} else if (result.type === "failure") {
 						resetError =
 							(result.data as { error?: string } | undefined)?.error ??
-							'Reset failed. Please try again.'
+							"Reset failed. Please try again."
 					}
 				}
 			}}

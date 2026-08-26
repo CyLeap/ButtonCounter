@@ -1,18 +1,18 @@
 function createCountPoll() {
 	let count = $state<number | null>(null)
-	let status = $state<'idle' | 'polling' | 'error'>('idle')
+	let status = $state<"idle" | "polling" | "error">("idle")
 	let timer: ReturnType<typeof setInterval> | undefined
 
 	async function tick() {
 		try {
-			const res = await fetch('/api/count')
+			const res = await fetch("/api/count")
 			if (!res.ok) throw new Error(`Unexpected status ${res.status}`)
 			const data = (await res.json()) as { count: number }
 			count = data.count
-			status = 'polling'
+			status = "polling"
 		} catch (e) {
-			console.error('Count poll failed:', e)
-			status = 'error'
+			console.error("Count poll failed:", e)
+			status = "error"
 		}
 	}
 

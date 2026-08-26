@@ -1,4 +1,4 @@
-import { db } from '$lib/server/db'
+import { db } from "$lib/server/db"
 
 interface CountHistory {
 	id: number
@@ -9,10 +9,10 @@ interface CountHistory {
 
 function toCountHistory(row: Record<string, unknown>): CountHistory {
 	if (
-		typeof row.id !== 'number' ||
-		typeof row.counter_id !== 'number' ||
-		typeof row.count !== 'number' ||
-		typeof row.clicked_at !== 'string'
+		typeof row.id !== "number" ||
+		typeof row.counter_id !== "number" ||
+		typeof row.count !== "number" ||
+		typeof row.clicked_at !== "string"
 	) {
 		throw new Error(`Invalid count_history row shape: ${JSON.stringify(row)}`)
 	}
@@ -63,9 +63,9 @@ export async function ensureCountHistoryTable() {
 
 export async function getCounter(): Promise<number> {
 	try {
-		const result = await db.execute('SELECT value FROM counters WHERE id = 1')
+		const result = await db.execute("SELECT value FROM counters WHERE id = 1")
 		const value = result.rows[0]?.value ?? 0
-		return typeof value === 'number' ? value : Number(value)
+		return typeof value === "number" ? value : Number(value)
 	} catch (error) {
 		throw new Error(
 			`Failed to retrieve counter: ${error instanceof Error ? error.message : String(error)}`,
@@ -81,11 +81,11 @@ export async function incrementCounter(): Promise<number> {
 				"UPDATE counters SET value = value + 1, updated_at = DATETIME('now', '+7 hours') WHERE id = 1 RETURNING value",
 				"INSERT INTO count_histories (counter_id, count, clicked_at) VALUES (1, (SELECT value FROM counters WHERE id = 1), DATETIME('now', '+7 hours'))",
 			],
-			'write',
+			"write",
 		)
 
 		const raw = updateResult.rows[0]?.value ?? 0
-		return typeof raw === 'number' ? raw : Number(raw)
+		return typeof raw === "number" ? raw : Number(raw)
 	} catch (error) {
 		throw new Error(
 			`Failed to increment counter: ${error instanceof Error ? error.message : String(error)}`,
@@ -100,7 +100,7 @@ export async function resetCounter(): Promise<number> {
 			"UPDATE counters SET value = 0, updated_at = DATETIME('now', '+7 hours') WHERE id = 1 RETURNING value",
 		)
 		const raw = result.rows[0]?.value ?? 0
-		return typeof raw === 'number' ? raw : Number(raw)
+		return typeof raw === "number" ? raw : Number(raw)
 	} catch (error) {
 		throw new Error(
 			`Failed to reset counter: ${error instanceof Error ? error.message : String(error)}`,
@@ -115,7 +115,7 @@ export async function getCountHistory({
 }: { limit?: number; offset?: number } = {}): Promise<CountHistory[]> {
 	try {
 		const result = await db.execute({
-			sql: 'SELECT * FROM count_histories ORDER BY clicked_at DESC LIMIT ? OFFSET ?',
+			sql: "SELECT * FROM count_histories ORDER BY clicked_at DESC LIMIT ? OFFSET ?",
 			args: [limit, offset],
 		})
 		return result.rows.map((row) => toCountHistory(row as Record<string, unknown>))
@@ -129,9 +129,9 @@ export async function getCountHistory({
 
 export async function getCountHistoryTotal(): Promise<number> {
 	try {
-		const result = await db.execute('SELECT COUNT(*) as total FROM count_histories')
+		const result = await db.execute("SELECT COUNT(*) as total FROM count_histories")
 		const value = result.rows[0]?.total ?? 0
-		return typeof value === 'number' ? value : Number(value)
+		return typeof value === "number" ? value : Number(value)
 	} catch (error) {
 		throw new Error(
 			`Failed to retrieve count history total: ${error instanceof Error ? error.message : String(error)}`,
