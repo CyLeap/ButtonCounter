@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDateJP } from "$lib/utils/date_format"
+	import { format_date_jp } from "$lib/utils/date_format"
 
 	type HistoryEntry = {
 		id: number
@@ -29,7 +29,7 @@
 				<tr class="border-t border-border-soft transition hover:bg-row-hover">
 					<td class="px-6 py-3 text-dim">{start_index + i + 1}</td>
 					<td class="px-6 py-3 font-medium text-ink">{entry.count}</td>
-					<td class="px-6 py-3 text-muted">{formatDateJP(entry.clicked_at)}</td>
+					<td class="px-6 py-3 text-muted">{format_date_jp(entry.clicked_at)}</td>
 				</tr>
 			{:else}
 				<tr>

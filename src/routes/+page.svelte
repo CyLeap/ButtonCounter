@@ -4,7 +4,7 @@
 	import CountDisplay from "$lib/components/CountDisplay.svelte"
 	import ResetButton from "$lib/components/ResetButton.svelte"
 	import ThemeToggle from "$lib/components/ThemeToggle.svelte"
-	import { countPoll } from "$lib/countPoll.svelte"
+	import { count_poll } from "$lib/countPoll.svelte"
 	import { enhance } from "$app/forms"
 	import { resolve } from "$app/paths"
 	import type { PageProps } from "./$types"
@@ -17,12 +17,12 @@
 	let increment_error = $state<string | null>(null)
 
 	onMount(() => {
-		countPoll.start()
-		return () => countPoll.stop()
+		count_poll.start()
+		return () => count_poll.stop()
 	})
 
 	$effect(() => {
-		if (countPoll.count !== null) count = countPoll.count
+		if (count_poll.count !== null) count = count_poll.count
 	})
 </script>
 
@@ -80,10 +80,10 @@
 				{#if increment_error}
 					<p class="text-sm text-red-600">{increment_error}</p>
 				{/if}
-				{#if countPoll.status === "error"}
+				{#if count_poll.status === "error"}
 					<p class="text-sm text-red-600">Sync lost. Retrying…</p>
 				{/if}
-				<ResetButton onReset={(new_count) => (count = new_count)} />
+				<ResetButton on_reset={(new_count) => (count = new_count)} />
 			</div>
 			<span
 				class="text-center font-['Noto_Sans_JP'] text-[10px] tracking-[0.2em] text-accent/70 sm:tracking-[0.3em]"

@@ -20,11 +20,11 @@
 		>
 			履歴
 		</h1>
-		<span aria-hidden="true" />
+		<span aria-hidden="true"></span>
 	</header>
 
 	<main class="mx-auto w-full max-w-2xl px-4">
-		<HistoryTable history={data.history} startIndex={(data.page - 1) * data.pageSize} />
-		<Pagination page={data.page} totalPages={data.totalPages} />
+		<HistoryTable history={data.history} start_index={(data.page - 1) * data.pageSize} />
+		<Pagination page={data.page} total_pages={data.total_pages} />
 	</main>
 </div>

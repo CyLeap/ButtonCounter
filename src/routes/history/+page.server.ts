@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ url }) => {
 
 		const history = await get_count_history({ limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE })
 
-		return { history, page, totalPages: total_pages, total, pageSize: PAGE_SIZE }
+		return { history, page, total_pages: total_pages, total, pageSize: PAGE_SIZE }
 	} catch (e) {
 		console.error("Failed to load history:", e)
 		error(500, "Could not load history. Please try again later.")
