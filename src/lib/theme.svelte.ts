@@ -1,6 +1,6 @@
 const KEY = "theme"
 
-function createTheme() {
+function create_theme() {
 	let dark = $state(false)
 
 	function apply(value: boolean) {
@@ -15,8 +15,8 @@ function createTheme() {
 		},
 		init() {
 			const saved = localStorage.getItem(KEY)
-			const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches
-			apply(saved !== null ? saved === "dark" : prefersDark)
+			const prefers_dark = matchMedia("(prefers-color-scheme: dark)").matches
+			apply(saved !== null ? saved === "dark" : prefers_dark)
 		},
 		toggle() {
 			apply(!dark)
@@ -24,4 +24,4 @@ function createTheme() {
 	}
 }
 
-export const theme = createTheme()
+export const theme = create_theme()

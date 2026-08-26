@@ -6,10 +6,10 @@ import { defineConfig, includeIgnoreFile } from "eslint/config"
 import globals from "globals"
 import ts from "typescript-eslint"
 
-const gitignorePath = path.resolve(import.meta.dirname, ".gitignore")
+const gitignore_path = path.resolve(import.meta.dirname, ".gitignore")
 
 export default defineConfig(
-	includeIgnoreFile(gitignorePath),
+	includeIgnoreFile(gitignore_path),
 	js.configs.recommended,
 	ts.configs.recommended,
 	svelte.configs.recommended,
@@ -27,10 +27,30 @@ export default defineConfig(
 		files: ["**/*.svelte", "**/*.svelte.ts", "**/*.svelte.js"],
 		languageOptions: {
 			parserOptions: {
-				projectService: true,
+				projectService: {
+					allowDefaultProject: [
+						"eslint.config.js",
+						"prettier.config.js",
+						"scripts/seed.ts"
+					]
+				},
 				extraFileExtensions: [".svelte"],
 				parser: ts.parser,
 			},
+		},
+	},
+	{
+		files: ['**/*.ts', '**/*.js', '**/*.svelte'],
+		rules: {
+			'@typescript-eslint/naming-convention': [
+                'error',
+                {
+                    selector: ['variable', 'function', 'parameter'],
+                    format: ['snake_case', 'UPPER_CASE'],
+                    leadingUnderscore: 'allow',
+                    trailingUnderscore: 'allow'
+                },
+			]
 		},
 	},
 	{

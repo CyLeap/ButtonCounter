@@ -3,13 +3,13 @@
 
 	type Props = {
 		page: number
-		totalPages: number
+		total_pages: number
 	}
 
-	let { page, totalPages }: Props = $props()
+	let { page, total_pages }: Props = $props()
 </script>
 
-{#if totalPages > 1}
+{#if total_pages > 1}
 	<nav
 		class="mt-4 flex items-center justify-center gap-4 font-['Noto_Sans_JP'] text-sm text-ink"
 		aria-label="ページネーション"
@@ -25,9 +25,9 @@
 			<span class="rounded-lg border border-border-soft px-4 py-2 text-dim">← 前へ</span>
 		{/if}
 
-		<span class="text-muted">{page} / {totalPages}</span>
+		<span class="text-muted">{page} / {total_pages}</span>
 
-		{#if page < totalPages}
+		{#if page < total_pages}
 			<a
 				href={resolve(`/history?page=${page + 1}`)}
 				class="rounded-lg border border-border px-4 py-2 text-ink transition hover:bg-row-hover"

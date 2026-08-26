@@ -2,13 +2,13 @@
 // via DATETIME('now', '+7 hours')) with no timezone marker. Mark that shape as
 // UTC and format with timeZone: 'UTC' so the digits shown always match exactly
 // what's stored, regardless of the viewer's own device timezone.
-function toDate(date: string | Date): Date {
+function to_date(date: string | Date): Date {
 	if (date instanceof Date) return date
-	const isUnmarked = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(date)
-	return new Date(isUnmarked ? `${date.replace(" ", "T")}Z` : date)
+	const is_unmarked = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(date)
+	return new Date(is_unmarked ? `${date.replace(" ", "T")}Z` : date)
 }
 
-export function formatDate(date: string | Date): string {
+export function format_date(date: string | Date): string {
 	return new Intl.DateTimeFormat("en-US", {
 		year: "numeric",
 		month: "short",
@@ -17,10 +17,10 @@ export function formatDate(date: string | Date): string {
 		minute: "2-digit",
 		second: "2-digit",
 		timeZone: "UTC",
-	}).format(toDate(date))
+	}).format(to_date(date))
 }
 
-export function formatDateJP(date: string | Date): string {
+export function format_date_jp(date: string | Date): string {
 	return new Intl.DateTimeFormat("ja-JP", {
 		year: "numeric",
 		month: "long",
@@ -28,5 +28,5 @@ export function formatDateJP(date: string | Date): string {
 		hour: "2-digit",
 		minute: "2-digit",
 		timeZone: "UTC",
-	}).format(toDate(date))
+	}).format(to_date(date))
 }

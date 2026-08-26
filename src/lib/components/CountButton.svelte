@@ -5,7 +5,7 @@
 
 	let wrapper: HTMLSpanElement | undefined
 
-	function playPress() {
+	function play_press() {
 		play(
 			wrapper,
 			[
@@ -22,7 +22,7 @@
 <span bind:this={wrapper} class="inline-block">
 	<button
 		type="submit"
-		onclick={playPress}
+		onclick={play_press}
 		class="group relative h-20 w-20 -rotate-3 touch-manipulation rounded-full bg-[#BE3144] shadow-[0_6px_0_0_#7A1F2B,0_10px_22px_rgba(0,0,0,0.35)] transition-all
 	       duration-100
 	       select-none

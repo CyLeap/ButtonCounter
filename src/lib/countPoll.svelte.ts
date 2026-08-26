@@ -1,4 +1,4 @@
-function createCountPoll() {
+function create_count_poll() {
 	let count = $state<number | null>(null)
 	let status = $state<"idle" | "polling" | "error">("idle")
 	let timer: ReturnType<typeof setInterval> | undefined
@@ -23,9 +23,9 @@ function createCountPoll() {
 		get status() {
 			return status
 		},
-		start(intervalMs = 3000) {
+		start(interval_ms = 3000) {
 			tick()
-			timer = setInterval(tick, intervalMs)
+			timer = setInterval(tick, interval_ms)
 		},
 		stop() {
 			clearInterval(timer)
@@ -33,4 +33,4 @@ function createCountPoll() {
 	}
 }
 
-export const countPoll = createCountPoll()
+export const count_poll = create_count_poll()

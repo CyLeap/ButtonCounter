@@ -3,20 +3,20 @@
 
 	let { count = 0 }: { count?: number } = $props()
 
-	let numberEl: HTMLSpanElement | undefined
+	let number_el: HTMLSpanElement | undefined
 	// Plain let, not $state - tracking it would re-trigger the effect below.
 	let previous: number | undefined
 
 	$effect(() => {
 		const current = count
-		const isFirstRender = previous === undefined
+		const is_first_render = previous === undefined
 		previous = current
 
 		// The number already on screen at mount shouldn't pop.
-		if (isFirstRender) return
+		if (is_first_render) return
 
 		play(
-			numberEl,
+			number_el,
 			[
 				{ transform: "scale(1)" },
 				{ transform: "scale(1.18)", offset: 0.4 },
@@ -30,7 +30,7 @@
 <div class="flex flex-col items-center gap-1">
 	<!-- inline-block: transforms have no effect on inline elements -->
 	<span
-		bind:this={numberEl}
+		bind:this={number_el}
 		class="inline-block text-7xl font-extrabold text-slate-600 tabular-nums sm:text-8xl"
 	>
 		{count}

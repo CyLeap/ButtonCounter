@@ -7,7 +7,7 @@ interface CountHistory {
 	clicked_at: string
 }
 
-function toCountHistory(row: Record<string, unknown>): CountHistory {
+function to_count_history(row: Record<string, unknown>): CountHistory {
 	if (
 		typeof row.id !== "number" ||
 		typeof row.counter_id !== "number" ||
@@ -25,7 +25,7 @@ function toCountHistory(row: Record<string, unknown>): CountHistory {
 	}
 }
 
-export async function ensureCounterTable() {
+export async function ensure_counter_table() {
 	try {
 		await db.execute(`
 			CREATE TABLE IF NOT EXISTS counters (
@@ -43,7 +43,7 @@ export async function ensureCounterTable() {
 	}
 }
 
-export async function ensureCountHistoryTable() {
+export async function ensure_count_history_table() {
 	try {
 		await db.execute(`
 			CREATE TABLE IF NOT EXISTS count_histories (
@@ -61,7 +61,7 @@ export async function ensureCountHistoryTable() {
 	}
 }
 
-export async function getCounter(): Promise<number> {
+export async function get_counter(): Promise<number> {
 	try {
 		const result = await db.execute("SELECT value FROM counters WHERE id = 1")
 		const value = result.rows[0]?.value ?? 0
@@ -74,9 +74,9 @@ export async function getCounter(): Promise<number> {
 	}
 }
 
-export async function incrementCounter(): Promise<number> {
+export async function increment_counter(): Promise<number> {
 	try {
-		const [updateResult] = await db.batch(
+		const [update_result] = await db.batch(
 			[
 				"UPDATE counters SET value = value + 1, updated_at = DATETIME('now', '+7 hours') WHERE id = 1 RETURNING value",
 				"INSERT INTO count_histories (counter_id, count, clicked_at) VALUES (1, (SELECT value FROM counters WHERE id = 1), DATETIME('now', '+7 hours'))",
@@ -84,7 +84,7 @@ export async function incrementCounter(): Promise<number> {
 			"write",
 		)
 
-		const raw = updateResult.rows[0]?.value ?? 0
+		const raw = update_result.rows[0]?.value ?? 0
 		return typeof raw === "number" ? raw : Number(raw)
 	} catch (error) {
 		throw new Error(
@@ -94,7 +94,7 @@ export async function incrementCounter(): Promise<number> {
 	}
 }
 
-export async function resetCounter(): Promise<number> {
+export async function reset_counter(): Promise<number> {
 	try {
 		const result = await db.execute(
 			"UPDATE counters SET value = 0, updated_at = DATETIME('now', '+7 hours') WHERE id = 1 RETURNING value",
@@ -109,7 +109,7 @@ export async function resetCounter(): Promise<number> {
 	}
 }
 
-export async function getCountHistory({
+export async function get_count_history({
 	limit = 50,
 	offset = 0,
 }: { limit?: number; offset?: number } = {}): Promise<CountHistory[]> {
@@ -118,7 +118,7 @@ export async function getCountHistory({
 			sql: "SELECT * FROM count_histories ORDER BY clicked_at DESC LIMIT ? OFFSET ?",
 			args: [limit, offset],
 		})
-		return result.rows.map((row) => toCountHistory(row as Record<string, unknown>))
+		return result.rows.map((row) => to_count_history(row as Record<string, unknown>))
 	} catch (error) {
 		throw new Error(
 			`Failed to retrieve count history: ${error instanceof Error ? error.message : String(error)}`,
@@ -127,7 +127,7 @@ export async function getCountHistory({
 	}
 }
 
-export async function getCountHistoryTotal(): Promise<number> {
+export async function get_count_history_total(): Promise<number> {
 	try {
 		const result = await db.execute("SELECT COUNT(*) as total FROM count_histories")
 		const value = result.rows[0]?.total ?? 0
