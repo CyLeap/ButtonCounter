@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { theme } from '$lib/theme.svelte'
+	import { theme } from "$lib/theme.svelte"
 </script>
 
 <button
 	onclick={theme.toggle}
-	aria-label={theme.dark ? 'Switch to light mode' : 'Switch to dark mode'}
+	aria-label={theme.dark ? "Switch to light mode" : "Switch to dark mode"}
 	class="rounded-full p-2 text-ink/60 transition hover:bg-accent/10 hover:text-ink"
 >
 	{#if theme.dark}

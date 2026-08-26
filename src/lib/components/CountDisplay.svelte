@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { play } from '$lib/motion'
+	import { play } from "$lib/motion"
 
 	let { count = 0 }: { count?: number } = $props()
 
@@ -18,11 +18,11 @@
 		play(
 			numberEl,
 			[
-				{ transform: 'scale(1)' },
-				{ transform: 'scale(1.18)', offset: 0.4 },
-				{ transform: 'scale(1)' },
+				{ transform: "scale(1)" },
+				{ transform: "scale(1.18)", offset: 0.4 },
+				{ transform: "scale(1)" },
 			],
-			{ duration: 220, easing: 'ease-out' },
+			{ duration: 220, easing: "ease-out" },
 		)
 	})
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths'
+	import { resolve } from "$app/paths"
 
 	type Props = {
 		page: number
