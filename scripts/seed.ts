@@ -18,11 +18,11 @@ async function seed() {
 
 	// counters テーブルが空の場合のみ、初期データを挿入する
 	const existing = await db.execute("SELECT COUNT(*) as count FROM counters")
-	const rowCount = (existing.rows[0] as { count: number }).count
+	const row_count = (existing.rows[0] as { count: number }).count
 
-	if (rowCount > 0) {
+	if (row_count > 0) {
 		console.log(
-			`counters テーブルには既に ${rowCount} 件のデータがあります。シードをスキップします。`,
+			`counters テーブルには既に ${row_count} 件のデータがあります。シードをスキップします。`,
 		)
 		return
 	}

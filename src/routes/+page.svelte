@@ -4,7 +4,7 @@
 	import CountDisplay from "$lib/components/CountDisplay.svelte"
 	import ResetButton from "$lib/components/ResetButton.svelte"
 	import ThemeToggle from "$lib/components/ThemeToggle.svelte"
-	import { countPoll } from "$lib/countPoll.svelte"
+	import { count_poll } from "$lib/countPoll.svelte"
 	import { enhance } from "$app/forms"
 	import { resolve } from "$app/paths"
 	import type { PageProps } from "./$types"
@@ -13,16 +13,16 @@
 
 	let count = $state(data.count)
 
-	let incrementPending = $state(false)
-	let incrementError = $state<string | null>(null)
+	let increment_pending = $state(false)
+	let increment_error = $state<string | null>(null)
 
 	onMount(() => {
-		countPoll.start()
-		return () => countPoll.stop()
+		count_poll.start()
+		return () => count_poll.stop()
 	})
 
 	$effect(() => {
-		if (countPoll.count !== null) count = countPoll.count
+		if (count_poll.count !== null) count = count_poll.count
 	})
 </script>
 
@@ -55,35 +55,35 @@
 					method="POST"
 					action="?/increment"
 					use:enhance={({ cancel }) => {
-						if (incrementPending) {
+						if (increment_pending) {
 							cancel()
 							return
 						}
-						incrementPending = true
-						incrementError = null
+						increment_pending = true
+						increment_error = null
 						return async ({ result }) => {
-							incrementPending = false
+							increment_pending = false
 							if (result.type === "success") {
 								count = (result.data as { count: number }).count
 							} else if (result.type === "failure") {
-								incrementError =
+								increment_error =
 									(result.data as { error?: string } | undefined)?.error ??
 									"Increment failed. Please try again."
 							}
 						}
 					}}
 				>
-					<fieldset disabled={incrementPending} class="contents">
+					<fieldset disabled={increment_pending} class="contents">
 						<CountButton />
 					</fieldset>
 				</form>
-				{#if incrementError}
-					<p class="text-sm text-red-600">{incrementError}</p>
+				{#if increment_error}
+					<p class="text-sm text-red-600">{increment_error}</p>
 				{/if}
-				{#if countPoll.status === "error"}
+				{#if count_poll.status === "error"}
 					<p class="text-sm text-red-600">Sync lost. Retrying…</p>
 				{/if}
-				<ResetButton onReset={(newCount) => (count = newCount)} />
+				<ResetButton on_reset={(new_count) => (count = new_count)} />
 			</div>
 			<span
 				class="text-center font-['Noto_Sans_JP'] text-[10px] tracking-[0.2em] text-accent/70 sm:tracking-[0.3em]"

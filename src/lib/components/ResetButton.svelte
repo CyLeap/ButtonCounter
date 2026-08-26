@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { enhance } from "$app/forms"
 
-	let { onReset }: { onReset: (count: number) => void } = $props()
+	let { on_reset }: { on_reset: (count: number) => void } = $props()
 
 	let dialog: HTMLDialogElement | undefined
-	let resetError = $state<string | null>(null)
+	let reset_error = $state<string | null>(null)
 </script>
 
 <button
@@ -26,8 +26,8 @@
 		カウントを 0 に戻しますか？
 	</p>
 
-	{#if resetError}
-		<p class="mt-2 text-sm text-red-600">{resetError}</p>
+	{#if reset_error}
+		<p class="mt-2 text-sm text-red-600">{reset_error}</p>
 	{/if}
 
 	<div class="mt-6 flex justify-end gap-3">
@@ -43,13 +43,13 @@
 			method="POST"
 			action="?/reset"
 			use:enhance={() => {
-				resetError = null
+				reset_error = null
 				return async ({ result }) => {
 					if (result.type === "success") {
-						onReset((result.data as { count: number }).count)
+						on_reset((result.data as { count: number }).count)
 						dialog?.close()
 					} else if (result.type === "failure") {
-						resetError =
+						reset_error =
 							(result.data as { error?: string } | undefined)?.error ??
 							"Reset failed. Please try again."
 					}

@@ -1,18 +1,18 @@
 import type { PageServerLoad, Actions } from "./$types"
 import { error, fail } from "@sveltejs/kit"
 import {
-	ensureCounterTable,
-	ensureCountHistoryTable,
-	getCounter,
-	incrementCounter,
-	resetCounter,
+	ensure_count_history_table,
+	ensure_counter_table,
+	get_counter,
+	increment_counter,
+	reset_counter,
 } from "$lib/server/counter"
 
 export const load: PageServerLoad = async () => {
 	try {
-		await ensureCounterTable()
-		await ensureCountHistoryTable()
-		return { count: await getCounter() }
+		await ensure_counter_table()
+		await ensure_count_history_table()
+		return { count: await get_counter() }
 	} catch (e) {
 		console.error("Failed to load counter:", e)
 		error(500, "Could not load counter. Please try again later.")
@@ -22,7 +22,7 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	increment: async () => {
 		try {
-			const count = await incrementCounter()
+			const count = await increment_counter()
 			return { count }
 		} catch (e) {
 			console.error("Failed to increment counter:", e)
@@ -31,7 +31,7 @@ export const actions: Actions = {
 	},
 	reset: async () => {
 		try {
-			const count = await resetCounter()
+			const count = await reset_counter()
 			return { count }
 		} catch (e) {
 			console.error("Failed to reset counter:", e)
