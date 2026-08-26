@@ -1,6 +1,10 @@
 import { error } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
-import { ensure_count_history_table, get_count_history, get_count_history_total } from "$lib/server/counter"
+import {
+	ensure_count_history_table,
+	get_count_history,
+	get_count_history_total,
+} from "$lib/server/counter"
 
 const PAGE_SIZE = 15
 

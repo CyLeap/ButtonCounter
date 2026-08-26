@@ -28,11 +28,7 @@ export default defineConfig(
 		languageOptions: {
 			parserOptions: {
 				projectService: {
-					allowDefaultProject: [
-						"eslint.config.js",
-						"prettier.config.js",
-						"scripts/seed.ts"
-					]
+					allowDefaultProject: ["eslint.config.js", "prettier.config.js", "scripts/seed.ts"],
 				},
 				extraFileExtensions: [".svelte"],
 				parser: ts.parser,
@@ -40,17 +36,17 @@ export default defineConfig(
 		},
 	},
 	{
-		files: ['**/*.ts', '**/*.js', '**/*.svelte'],
+		files: ["**/*.ts", "**/*.js", "**/*.svelte"],
 		rules: {
-			'@typescript-eslint/naming-convention': [
-                'error',
-                {
-                    selector: ['variable', 'function', 'parameter'],
-                    format: ['snake_case', 'UPPER_CASE'],
-                    leadingUnderscore: 'allow',
-                    trailingUnderscore: 'allow'
-                },
-			]
+			"@typescript-eslint/naming-convention": [
+				"error",
+				{
+					selector: ["variable", "function", "parameter"],
+					format: ["snake_case", "UPPER_CASE"],
+					leadingUnderscore: "allow",
+					trailingUnderscore: "allow",
+				},
+			],
 		},
 	},
 	{

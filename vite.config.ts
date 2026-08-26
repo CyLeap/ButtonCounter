@@ -1,7 +1,7 @@
-import tailwindcss from '@tailwindcss/vite'
-import adapter from '@sveltejs/adapter-cloudflare'
-import { sveltekit } from '@sveltejs/kit/vite'
-import { defineConfig } from 'vitest/config'
+import tailwindcss from "@tailwindcss/vite"
+import adapter from "@sveltejs/adapter-cloudflare"
+import { sveltekit } from "@sveltejs/kit/vite"
+import { defineConfig } from "vitest/config"
 
 export default defineConfig({
 	plugins: [
@@ -16,7 +16,7 @@ export default defineConfig({
 		}),
 	],
 	test: {
-		include: ['src/**/*.test.ts'],
-		environment: 'node',
+		include: ["src/**/*.test.ts"],
+		environment: "node",
 	},
 })
