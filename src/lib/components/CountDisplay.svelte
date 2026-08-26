@@ -1,30 +1,30 @@
 <script lang="ts">
-	import { play } from '$lib/motion';
+	import { play } from '$lib/motion'
 
-	let { count = 0 }: { count?: number } = $props();
+	let { count = 0 }: { count?: number } = $props()
 
-	let numberEl: HTMLSpanElement | undefined;
+	let numberEl: HTMLSpanElement | undefined
 	// Plain let, not $state - tracking it would re-trigger the effect below.
-	let previous: number | undefined;
+	let previous: number | undefined
 
 	$effect(() => {
-		const current = count;
-		const isFirstRender = previous === undefined;
-		previous = current;
+		const current = count
+		const isFirstRender = previous === undefined
+		previous = current
 
 		// The number already on screen at mount shouldn't pop.
-		if (isFirstRender) return;
+		if (isFirstRender) return
 
 		play(
 			numberEl,
 			[
 				{ transform: 'scale(1)' },
 				{ transform: 'scale(1.18)', offset: 0.4 },
-				{ transform: 'scale(1)' }
+				{ transform: 'scale(1)' },
 			],
-			{ duration: 220, easing: 'ease-out' }
-		);
-	});
+			{ duration: 220, easing: 'ease-out' },
+		)
+	})
 </script>
 
 <div class="flex flex-col items-center gap-1">

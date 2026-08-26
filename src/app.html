@@ -8,8 +8,8 @@
 		<script>
 			const t =
 				localStorage.getItem('theme') ??
-				(matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-			document.documentElement.classList.toggle('dark', t === 'dark');
+				(matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+			document.documentElement.classList.toggle('dark', t === 'dark')
 		</script>
 	</head>
 	<body data-sveltekit-preload-data="hover">

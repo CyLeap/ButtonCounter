@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { formatDateJP } from '$lib/utils/date_format';
+	import { formatDateJP } from '$lib/utils/date_format'
 
 	type HistoryEntry = {
-		id: number;
-		count: number;
-		clicked_at: string | Date;
-	};
+		id: number
+		count: number
+		clicked_at: string | Date
+	}
 
 	type Props = {
-		history: HistoryEntry[];
-		startIndex?: number;
-	};
+		history: HistoryEntry[]
+		startIndex?: number
+	}
 
-	let { history, startIndex = 0 }: Props = $props();
+	let { history, startIndex = 0 }: Props = $props()
 </script>
 
 <div class="overflow-x-auto rounded-lg border border-border bg-surface">

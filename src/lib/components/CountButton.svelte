@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { play } from '$lib/motion';
+	import { play } from '$lib/motion'
 
-	let { label = 'クリック' }: { label?: string } = $props();
+	let { label = 'クリック' }: { label?: string } = $props()
 
-	let wrapper: HTMLSpanElement | undefined;
+	let wrapper: HTMLSpanElement | undefined
 
 	function playPress() {
 		play(
@@ -12,10 +12,10 @@
 				{ transform: 'scale(1)' },
 				{ transform: 'scale(0.9)', offset: 0.3 },
 				{ transform: 'scale(1.06)', offset: 0.65 },
-				{ transform: 'scale(1)' }
+				{ transform: 'scale(1)' },
 			],
-			{ duration: 260, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }
-		);
+			{ duration: 260, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' },
+		)
 	}
 </script>
 
