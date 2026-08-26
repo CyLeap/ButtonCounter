@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { resolve } from '$app/paths'
 
 	type Props = {
-		page: number;
-		totalPages: number;
-	};
+		page: number
+		totalPages: number
+	}
 
-	let { page, totalPages }: Props = $props();
+	let { page, totalPages }: Props = $props()
 </script>
 
 {#if totalPages > 1}

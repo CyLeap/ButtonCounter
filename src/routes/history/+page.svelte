@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { PageProps } from './$types';
-	import { resolve } from '$app/paths';
-	import HistoryTable from '$lib/components/HistoryTable.svelte';
-	import Pagination from '$lib/components/Pagination.svelte';
+	import type { PageProps } from './$types'
+	import { resolve } from '$app/paths'
+	import HistoryTable from '$lib/components/HistoryTable.svelte'
+	import Pagination from '$lib/components/Pagination.svelte'
 
-	let { data }: PageProps = $props();
+	let { data }: PageProps = $props()
 </script>
 
 <div class="flex min-h-screen flex-col bg-bg">

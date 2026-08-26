@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import { enhance } from '$app/forms'
 
-	let { onReset }: { onReset: (count: number) => void } = $props();
+	let { onReset }: { onReset: (count: number) => void } = $props()
 
-	let dialog: HTMLDialogElement | undefined;
-	let resetError = $state<string | null>(null);
+	let dialog: HTMLDialogElement | undefined
+	let resetError = $state<string | null>(null)
 </script>
 
 <button
@@ -18,7 +18,7 @@
 <dialog
 	bind:this={dialog}
 	onclick={(event) => {
-		if (event.target === dialog) dialog?.close();
+		if (event.target === dialog) dialog?.close()
 	}}
 	class="m-auto w-[calc(100vw-2rem)] max-w-sm rounded-2xl border border-[#C9A227]/40 bg-white p-6 shadow-2xl backdrop:bg-black/40 sm:p-8"
 >
@@ -43,17 +43,17 @@
 			method="POST"
 			action="?/reset"
 			use:enhance={() => {
-				resetError = null;
+				resetError = null
 				return async ({ result }) => {
 					if (result.type === 'success') {
-						onReset((result.data as { count: number }).count);
-						dialog?.close();
+						onReset((result.data as { count: number }).count)
+						dialog?.close()
 					} else if (result.type === 'failure') {
 						resetError =
 							(result.data as { error?: string } | undefined)?.error ??
-							'Reset failed. Please try again.';
+							'Reset failed. Please try again.'
 					}
-				};
+				}
 			}}
 		>
 			<button
