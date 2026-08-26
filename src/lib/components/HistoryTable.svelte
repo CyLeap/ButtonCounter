@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDateJP } from '$lib/utils/date_format'
+	import { formatDateJP } from "$lib/utils/date_format"
 
 	type HistoryEntry = {
 		id: number

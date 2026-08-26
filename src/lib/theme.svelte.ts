@@ -1,12 +1,12 @@
-const KEY = 'theme'
+const KEY = "theme"
 
 function createTheme() {
 	let dark = $state(false)
 
 	function apply(value: boolean) {
 		dark = value
-		document.documentElement.classList.toggle('dark', value)
-		localStorage.setItem(KEY, value ? 'dark' : 'light')
+		document.documentElement.classList.toggle("dark", value)
+		localStorage.setItem(KEY, value ? "dark" : "light")
 	}
 
 	return {
@@ -15,8 +15,8 @@ function createTheme() {
 		},
 		init() {
 			const saved = localStorage.getItem(KEY)
-			const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches
-			apply(saved !== null ? saved === 'dark' : prefersDark)
+			const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches
+			apply(saved !== null ? saved === "dark" : prefersDark)
 		},
 		toggle() {
 			apply(!dark)

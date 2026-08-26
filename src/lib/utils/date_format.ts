@@ -5,28 +5,28 @@
 function toDate(date: string | Date): Date {
 	if (date instanceof Date) return date
 	const isUnmarked = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(date)
-	return new Date(isUnmarked ? `${date.replace(' ', 'T')}Z` : date)
+	return new Date(isUnmarked ? `${date.replace(" ", "T")}Z` : date)
 }
 
 export function formatDate(date: string | Date): string {
-	return new Intl.DateTimeFormat('en-US', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-		hour: '2-digit',
-		minute: '2-digit',
-		second: '2-digit',
-		timeZone: 'UTC',
+	return new Intl.DateTimeFormat("en-US", {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+		timeZone: "UTC",
 	}).format(toDate(date))
 }
 
 export function formatDateJP(date: string | Date): string {
-	return new Intl.DateTimeFormat('ja-JP', {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-		hour: '2-digit',
-		minute: '2-digit',
-		timeZone: 'UTC',
+	return new Intl.DateTimeFormat("ja-JP", {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+		timeZone: "UTC",
 	}).format(toDate(date))
 }

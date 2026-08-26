@@ -1,13 +1,13 @@
 /** @type {import("prettier").Config} */
 const config = {
 	useTabs: true,
-	singleQuote: true,
+	singleQuote: false,
 	semi: false,
-	trailingComma: 'all',
+	trailingComma: "all",
 	printWidth: 100,
-	plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
-	overrides: [{ files: '*.svelte', options: { parser: 'svelte' } }],
-	tailwindStylesheet: './src/routes/layout.css',
+	plugins: ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
+	overrides: [{ files: "*.svelte", options: { parser: "svelte" } }],
+	tailwindStylesheet: "./src/routes/layout.css",
 }
 
 export default config
